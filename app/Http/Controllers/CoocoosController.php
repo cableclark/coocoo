@@ -66,10 +66,17 @@ class CoocoosController extends Controller
 
         $coocoo = Coocoo::find($id);
 
+        if ($coocoo->user_id != auth()->user()->id ) {
+
+            request()->session()->flash('status',  'Your have no premision to delete this coocoo!');
+
+            return  redirect()->route('CoocoosHome');
+        }
+
         $coocoo->delete();
 
         request()->session()->flash('status',  'Your Coocoo has been deleted!');
 
-        return  redirect()->route('coocoos');
+        return redirect()->route('CoocoosHome');
     }
  }

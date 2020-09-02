@@ -18,7 +18,8 @@ Route::get('/', function () {
     $coocoos = Coocoo::all()->sortByDesc('created_at');
 
     return view('welcome', compact('coocoos'));
-});
+
+})->name("CoocoosHome");
 
 
 
