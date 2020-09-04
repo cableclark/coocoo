@@ -13,7 +13,7 @@
         <div>
             <p>{{$project->description}}</p>
             <p>Author: {{$project->user->name}}</p>
-            <p>Author: {{$project->user->email}}</p>
+            <p>E-mail: {{$project->user->email}}</p>
         </div>
     @endforeach
 </body>

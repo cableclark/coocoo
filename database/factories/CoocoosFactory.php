@@ -9,7 +9,7 @@ use Faker\Generator as Faker;
 $factory->define(Coocoo::class, function (Faker $faker) {
     return [
         //
-        'tweet' => $faker->paragraph,
+        'coocoo' => $faker->paragraph,
         'user_id' => function () {
             return factory(User::class)->create()->id;
         },

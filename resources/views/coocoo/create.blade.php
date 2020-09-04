@@ -4,7 +4,6 @@
 <div class="container">
     <div class="row justify-content-center mt-4">
         <div class="col-md-8">
-
             <form action = "/coocoos/store" method="POST">
                 @csrf
                 <div class="form-group">
@@ -13,13 +12,11 @@
                 </div>
                   <button class="btn btn-primary" type="submit">Save</button>
             </form>
-
             @error('coocooo')
             <div class="alert alert-danger mt-2">
                 {{ $message }}
             </div>
             @enderror
-
             @if (session('status'))
             <div class="alert alert-success mt-2">
                 {{ session('status') }}

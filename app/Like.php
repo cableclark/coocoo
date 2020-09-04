@@ -4,14 +4,17 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Project extends Model
+class Like extends Model
 {
     //
-    protected $guarded=[];
 
     public function user()
     {
         return $this->belongsTo('App\User');
     }
 
+    public function coocoo()
+    {
+        return $this->belongsTo('App\Coocoo');
+    }
 }

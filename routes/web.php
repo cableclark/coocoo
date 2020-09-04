@@ -1,26 +1,19 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\User;
 use App\Coocoo;
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
 
 Route::get('/', function () {
 
-    $coocoos = Coocoo::all()->sortByDesc('created_at');
+    $coocoos = Coocoo::all();
 
     return view('welcome', compact('coocoos'));
 
-})->name("CoocoosHome");
+});
 
+
+Route::get('/home', 'HomeController@index')->name("CoocoosHome");
 
 
 Route::group(['middleware' => 'auth'], function () {
@@ -31,10 +24,13 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('/coocoos/store', 'CoocoosController@save');
 
     Route::delete('/coocoos/{id}', 'CoocoosController@destroy');
+
+    Route::post('/follow', 'FollowsController@save');
+
+    Route::delete('/follow/{userid}', 'FollowsController@destroy');
 });
 
 
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');

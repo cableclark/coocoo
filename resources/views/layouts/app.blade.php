@@ -36,6 +36,9 @@
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ml-auto">
                         <li class="nav-item">
+                            <a class="nav-link" href="/home"> Home</a>
+                        </li>
+                        <li class="nav-item">
                             <a class="nav-link" href="/coocoos"> My coocoos</a>
                         </li>
                         <li class="nav-item">
@@ -74,8 +77,7 @@
                 </div>
             </div>
         </nav>
-
-        <main class="py-4 mt-4">
+        <main class="py-4 mt-5">
             @yield('content')
         </main>
     </div>

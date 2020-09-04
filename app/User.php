@@ -5,6 +5,8 @@ namespace App;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use App\Coocoo;
+use App\Follow;
 
 class User extends Authenticatable
 {
@@ -37,13 +39,21 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function user()
-    {
-        return $this->hasMany('App\User');
-    }
 
     public function coocoos()
     {
         return $this->hasMany('App\Coocoo');
     }
+
+    public function follows()
+    {
+        return $this->hasMany('App\Follow');
+    }
+
+    public function follow()
+    {
+        return $this->belongsTo('App\Follow');
+    }
+
+
 }

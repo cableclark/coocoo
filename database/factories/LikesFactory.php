@@ -1,18 +1,20 @@
 <?php
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
 
-use App\Project;
+use App\Coocoo;
 use App\User;
+use App\Like;
 use Faker\Generator as Faker;
 
 
-$factory->define(Project::class, function (Faker $faker) {
+$factory->define(Like::class, function (Faker $faker) {
     return [
         //
-        'title'=>$faker->sentence,
-        'description' => $faker->paragraph,
         'user_id' => function () {
             return factory(User::class)->create()->id;
+        },
+        'coocoo_id' => function () {
+            return factory(Coocoo::class)->create()->id;
         },
     ];
 });
