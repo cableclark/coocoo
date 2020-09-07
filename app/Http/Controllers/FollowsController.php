@@ -11,13 +11,10 @@ class FollowsController extends Controller
     //
 
 
-
-
     public function destroy($userid) {
 
         $follow = Follow::where('follwed_user_id', $userid)
-                        ->where('user_id', auth()
-                        ->user()->id)
+                        ->where('user_id', auth()->user()->id)
                         ->get();
 
         $follow[0]->delete();
@@ -47,6 +44,7 @@ class FollowsController extends Controller
 
         return redirect()->route('CoocoosHome');
     }
+
 
     private function isAlreadyFollowed() {
 

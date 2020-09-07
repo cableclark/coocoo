@@ -31,6 +31,9 @@ Route::group(['middleware' => 'auth'], function () {
 });
 
 
+Route::get('/user/{name}', 'UserController@show')->name("User");
+
+
 
 Auth::routes();
 

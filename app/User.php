@@ -42,17 +42,29 @@ class User extends Authenticatable
 
     public function coocoos()
     {
+
         return $this->hasMany('App\Coocoo');
+
     }
 
     public function follows()
     {
+
         return $this->hasMany('App\Follow');
+
     }
 
     public function follow()
     {
+
         return $this->belongsTo('App\Follow');
+
+    }
+
+
+    public function isFolowedBy($id)
+    {
+        return true;
     }
 
 
