@@ -11,6 +11,11 @@ use App\Follow;
 class User extends Authenticatable
 {
     use Notifiable;
+    /**
+     * Id of a user that needs to be checked if it is followed by the authenticated user.
+     * @var Integer
+     */
+    private $idToBeChecked;
 
     /**
      * The attributes that are mass assignable.
@@ -41,31 +46,37 @@ class User extends Authenticatable
 
 
     public function coocoos()
+
     {
 
         return $this->hasMany('App\Coocoo');
 
     }
 
-    public function follows()
+    public function followings()
     {
 
-        return $this->hasMany('App\Follow');
-
-    }
-
-    public function follow()
-    {
-
-        return $this->belongsTo('App\Follow');
+        return $this->belongsToMany(User::class, 'follower_user', 'follower_id', 'user_id');
 
     }
 
 
-    public function isFolowedBy($id)
+     public function followers()
     {
-        return true;
+
+        return $this->belongsToMany(User::class, 'follower_user', 'user_id', 'follower_id');
+
     }
+
+
+    public function followsAUser($userid) {
+
+     return !empty(auth()->user()->followings()->where('user_id',$userid)->get()[0]);
+
+
+    }
+
+
 
 
 }

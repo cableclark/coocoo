@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 class Coocoo extends Model
 {
@@ -10,27 +11,42 @@ class Coocoo extends Model
     protected $guarded = [];
 
     public function user()
+
     {
+
         return $this->belongsTo('App\User');
+
     }
 
     public function likes()
+
     {
+
         return $this->hasMany('App\Like');
+
     }
 
-   /**
-     * Retreive the coocoos of the folowers of an autheticated user
-     *
-     * @return Array
-     */
-    public function getCoocoosOfOwnFollowers() {
 
-        return auth()->user()->follows->map(function ($item) {
 
-            return User::findOrFail($item->follwed_user_id)->coocoos;
+    public function getLatestCoocoos ($id) {
 
-        });
+
+            $follows = auth()->user()->follows;
+
+            dd($follows);
+
+            $ids = $follows->map(function ($item) {
+
+                return $item->id;
+
+            });
+
+            $ids[]= auth()->user()->id;
+
+            return Coocoo::whereIn('user_id', $ids)->orderBy('created_at', 'desc')
+                    ->paginate(5);
+
+
     }
 
 

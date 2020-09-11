@@ -3,70 +3,70 @@
 
 @section('content')
 <div class="container">
-
     <div class="row justify-content-center">
+        <div class="col-md-8 m-4">
 
-        <div class="col-md-8">
+        @if (session('status'))
+            <div class="alert alert-success" role="alert">
+                {{ session('status') }}
+            </div>
+        @endif
+        @include('inc.coocooform')
+        @forelse ($latestCoocoos as $coocoo)
 
-            @if (session('status'))
-
-                <div class="alert alert-success" role="alert">
-
-                    {{ session('status') }}
+            <div class="card p-3 rounded shadow">
+                <div>
+                    <a href="/user/{{$coocoo->user->name}}">
+                        {{$coocoo->user->name}}
+                    </a>
+                </div>
+                <div>
+                    <p>"{{$coocoo->coocoo}}"" - <i> {{$coocoo->created_at->diffForHumans()}}</i></p>
 
                 </div>
 
-            @endif
+                <div class="d-flex">
 
-            @forelse ($coocoosCollection as $coocoo)
+                    @auth
 
-            <div class="card p-3 m-3 rounded shadow">
+                    <form  action="/like/{{$coocoo->id}}" method="POST">
+                        @csrf
+                        <button type="submit" class="btn btn-link" value="{{$coocoo->id}}"> Like</button>
+                    </form>
 
-                <h2>
-                    <a href="/users/{{$coocoo->user->name}}">
-                        {{$coocoo->user->name}}
-                    </a>
-                </h2>
-
-                <p>{{$coocoo->coocoo}}</p>
-
-                <p>
-                    Published on {{$coocoo->created_at->format('M d, Y')}}
-                </p>
-
-                @auth
-
-                    @if (auth()->user()->id == $coocoo->user_id )
-
-                        <form action="/coocoos/{{$coocoo->id}}" method="POST">
+                        @if (auth()->user()->id == $coocoo->user_id )
+                        <form class="ml-auto" action="/coocoos/{{$coocoo->id}}" method="POST">
                             @csrf
                             @method('DELETE')
                             <button type="submit" class="btn btn-danger" value="{{$coocoo->id}}"> Delete</button>
                         </form>
 
-                    @else
-
-                        <form action="/follow/{{$coocoo->user_id}}" method="POST">
+                        @else
+                        <form  class="ml-auto" action="/follow/{{$coocoo->user_id}}" method="POST">
                             @csrf
                             @method('DELETE')
-                            <button type="submit" class="btn btn-primary" name="follwed_user_id"> Unollow</button>
+                            <button type="submit" class="btn btn-link" name="follwed_user_id"> Unollow</button>
                         </form>
+                        @endif
 
-                    @endif
+                    @endauth
+                </div>
 
-                @endauth
-
-                @error('coocooo')
+            @error('coocooo')
                 <div class="alert alert-danger mt-2">
                     {{ $message }}
                 </div>
-                @enderror
+            @enderror
 
             </div>
 
             @empty
-                <p>No coocos for you yet...</p>
-            @endforelse
+             <div>No coocos for you yet...</div>
+        @endforelse
+
+        <div class="p-3 d-flex justify-content-center">
+             {{ $latestCoocoos->links()}}
+        </div>
     </div>
 </div>
 @endsection

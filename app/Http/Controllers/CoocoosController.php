@@ -16,7 +16,7 @@ class CoocoosController extends Controller
     */
     public function index () {
 
-        $coocoos = auth()->user()->coocoos;
+        $coocoos = auth()->user()->coocoos()->orderBy('created_at', 'desc')->get();
 
 
         return view ('coocoo.index', compact('coocoos'));
@@ -77,6 +77,6 @@ class CoocoosController extends Controller
 
         request()->session()->flash('status',  'Your Coocoo has been deleted!');
 
-        return redirect()->route('CoocoosHome');
+        return redirect()->route('UserHome');
     }
  }

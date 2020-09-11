@@ -21,7 +21,7 @@
 </head>
 <body>
     <div id="app">
-        <nav class=" shadow navbar navbar-expand-md navbar-dark bg-dark shadow-sm fixed-top">
+        <nav class=" shadow navbar navbar-expand-md navbar-info bg-light shadow fixed-top">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
                     {{ config('app.name', 'Laravel') }}
@@ -35,23 +35,25 @@
                     </ul>
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ml-auto">
+                        @auth
                         <li class="nav-item">
-                            <a class="nav-link" href="/home"> Home</a>
+                            <a class="nav-link" href="/home"> HOME</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="/coocoos"> My coocoos</a>
+                            <a class="nav-link" href="/coocoos"> MY COOCOOs</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="/coocoos/create"> Write new</a>
+                            <a class="nav-link" href="/coocoos/create"> WRITE NEW</a>
                         </li>
+                        @endauth
                         <!-- Authentication Links -->
                         @guest
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
+                                <a class="nav-link" href="{{ route('login') }}">{{ __('LOGIN') }}</a>
                             </li>
                             @if (Route::has('register'))
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
+                                    <a class="nav-link" href="{{ route('register') }}">{{ __('REGISTER') }}</a>
                                 </li>
                             @endif
                         @else

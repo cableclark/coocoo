@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\User;
 use App\Coocoo;
 
+
 class HomeController extends Controller
 {
 
@@ -22,45 +23,30 @@ class HomeController extends Controller
     }
 
 
-
     /**
      * Show the application dashboard.
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
     public function index(Coocoo $coocoo)
+
     {
+        $followers = auth()->user()
+            ->followings;
 
-        $this->coocoos = $coocoo->getCoocoosOfOwnFollowers();
+        $ids[] = $followers->map(function ($follower) {
+
+            return $follower->id;
+
+        });
 
 
-        if(!$this->coocoos->isEmpty()) {
+        $latestCoocoos = Coocoo::whereIn('user_id', $ids[0])->orderBy('created_at', 'desc')->paginate(5);
 
-            $coocoosCollection = $this->prepareFollowersCollections();
 
-        } else {
-
-            $coocoosCollection = [];
-        }
-
-        return view('home', compact('coocoosCollection'));
+        return view('home', compact('latestCoocoos'));
 
     }
 
-     /**
-     * Prepare the retreived array of collcetions
-     *
-     * @return Collection
-     */
 
-    private function prepareFollowersCollections () {
-
-        $firstUserItems = $this->coocoos[0];
-
-        forEach($this->coocoos as $coocoo) {
-            $firstUserItems = $firstUserItems->merge($coocoo);
-        }
-
-       return $firstUserItems->sortBy('createdAt');
-    }
 }

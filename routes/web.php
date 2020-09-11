@@ -6,14 +6,14 @@ use App\Coocoo;
 
 Route::get('/', function () {
 
-    $coocoos = Coocoo::all();
+    $coocoos = Coocoo::paginate(10);
 
     return view('welcome', compact('coocoos'));
 
 });
 
 
-Route::get('/home', 'HomeController@index')->name("CoocoosHome");
+Route::get('/home', 'HomeController@index')->name("UserHome");
 
 
 Route::group(['middleware' => 'auth'], function () {
@@ -25,14 +25,13 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::delete('/coocoos/{id}', 'CoocoosController@destroy');
 
-    Route::post('/follow', 'FollowsController@save');
+    Route::post('/follow', 'FollowingsController@save');
 
-    Route::delete('/follow/{userid}', 'FollowsController@destroy');
+    Route::delete('/follow/{userid}', 'FollowingsController@destroy');
 });
 
 
 Route::get('/user/{name}', 'UserController@show')->name("User");
-
 
 
 Auth::routes();
