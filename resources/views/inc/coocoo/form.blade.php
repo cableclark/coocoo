@@ -1,14 +1,11 @@
 <div class="mb-4 ">
-    @error('coocooo')
-    <div class="alert alert-danger mt-2">
-        {{ $message }}
-    </div>
+
+    @error('coocoo')
+    <x-error-message type="danger" :message="$message" />
     @enderror
-    @if (session('status'))
-    <div class="alert alert-success mt-2">
-        {{ session('status') }}
-    </div>
-    @endif
+
+    @include('inc.sessionStatus')
+
     <form action = "/coocoos/store" method="POST">
         @csrf
         <div class="form-group">

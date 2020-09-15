@@ -13,9 +13,15 @@ class CreateCoocooUserTable extends Migration
      */
     public function up()
     {
-        Schema::create('coocoo_user', function (Blueprint $table) {
+        Schema::create('likes', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('coocoo_id');
+            $table->foreignId('user_id');
             $table->timestamps();
+
+            $table->foreign('coocoo_id')->references('id')->on('coocoos')->onDelete('cascade');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+
         });
     }
 

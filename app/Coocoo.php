@@ -10,6 +10,8 @@ class Coocoo extends Model
     //
     protected $guarded = [];
 
+
+
     public function user()
 
     {
@@ -27,13 +29,22 @@ class Coocoo extends Model
     }
 
 
+    public function comments()
 
-    public function getLatestCoocoos ($id) {
+    {
 
+        return $this->hasMany('App\Comment', 'coocoo');
+
+    }
+
+
+
+    public function getLatestCoocoos ($id)
+
+    {
 
             $follows = auth()->user()->follows;
 
-            dd($follows);
 
             $ids = $follows->map(function ($item) {
 
@@ -46,8 +57,15 @@ class Coocoo extends Model
             return Coocoo::whereIn('user_id', $ids)->orderBy('created_at', 'desc')
                     ->paginate(5);
 
+    }
+
+    public function likekdByUsers()
+    {
+
+        return $this->belongsToMany(Coocoo::class, 'likes', 'coocoo_id', 'user_id')->withTimestamps();
 
     }
+
 
 
 }

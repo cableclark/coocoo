@@ -40,9 +40,7 @@ class HomeController extends Controller
 
         });
 
-
         $latestCoocoos = Coocoo::whereIn('user_id', $ids[0])->orderBy('created_at', 'desc')->paginate(5);
-
 
         return view('home', compact('latestCoocoos'));
 

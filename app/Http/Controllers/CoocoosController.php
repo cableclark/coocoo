@@ -23,6 +23,20 @@ class CoocoosController extends Controller
     }
 
     /**
+    * An acion for displaying an instance of a coocoo by id
+    *
+    * @return View
+    */
+    public function show($id) {
+
+        $coocoo = Coocoo::find($id);
+
+        return view ('coocoo.show', compact('coocoo'));
+    }
+
+
+
+    /**
     * An acion for displaying a view for creating a coocoo
     *
     * @return view
@@ -62,15 +76,15 @@ class CoocoosController extends Controller
     * @return view
     */
 
-    public function destroy ($id) {
+    public function destroy () {
 
-        $coocoo = Coocoo::find($id);
+        $coocoo = Coocoo::find(request()->input('coocoo_id'));
 
         if ($coocoo->user_id != auth()->user()->id ) {
 
             request()->session()->flash('status',  'Your have no premision to delete this coocoo!');
 
-            return  redirect()->route('CoocoosHome');
+            return redirect()->route('UserHome');
         }
 
         $coocoo->delete();

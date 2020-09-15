@@ -10,17 +10,15 @@ class FollowingsController extends Controller
 {
     //
 
-
     public function save() {
 
-        $validdata= request()->validate([
+        $validdata = request()->validate([
             "followed_id"=>"required",
         ] );
 
-        $this->createFollowing($validdata);
+        $this->saveFollowing($validdata);
 
         return redirect()->route('UserHome');
-
     }
 
 
@@ -29,13 +27,13 @@ class FollowingsController extends Controller
         $follow = DB::table("follower_user")->where('user_id',   $userid)->where('follower_id', auth()->user()->id)
                         ->delete();
 
-        request()->session()->flash('status',  'You no longer follow ' .  $userid .'!');
+        request()->session()->flash('status',  'You no longer follow ' .  request()->input('username') .'!');
 
         return redirect()->route('UserHome');
     }
 
 
-    public function createFollowing ($userid) {
+    public function saveFollowing ($userid) {
 
         if (auth()->user()->followsAUser($userid)) {
 
@@ -47,7 +45,7 @@ class FollowingsController extends Controller
 
         auth()->user()->followings()->attach($userid);
 
-        request()->session()->flash('status',  'Your are now following ' . request()->input('username') .' !');
+        request()->session()->flash('status',  'Your are now following ' . request()->input('username') .'!');
 
     }
 }
