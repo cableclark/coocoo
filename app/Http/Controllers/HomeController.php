@@ -6,7 +6,6 @@ use Illuminate\Http\Request;
 use App\User;
 use App\Coocoo;
 
-
 class HomeController extends Controller
 {
 
@@ -45,6 +44,5 @@ class HomeController extends Controller
         return view('home', compact('latestCoocoos'));
 
     }
-
 
 }

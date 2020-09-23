@@ -46,42 +46,31 @@ class User extends Authenticatable
 
 
     public function coocoos()
-
     {
-
         return $this->hasMany('App\Coocoo');
 
     }
 
     public function followings()
     {
-
         return $this->belongsToMany(User::class, 'follower_user', 'follower_id', 'user_id')->withTimestamps();
-
     }
 
 
     public function followers()
     {
-
         return $this->belongsToMany(User::class, 'follower_user', 'user_id', 'follower_id')->withTimestamps();
-
     }
 
     public function likes()
     {
-
         return $this->belongsToMany(Coocoo::class, 'likes', 'user_id','coocoo_id')->withTimestamps();
-
     }
 
 
     public function comments()
-
     {
-
         return $this->hasMany('App\Comment', 'author');
-
     }
 
 

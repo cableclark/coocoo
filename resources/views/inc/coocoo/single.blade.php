@@ -1,17 +1,13 @@
-<div class="card p-3 rounded shadow">
-    <div class= "p-3">
+<div class="p-5 rounded shadow">
         @include ('inc.coocoo.bare')
         <hr/>
-        <div class="d-flex">
-
+        <div class="flex mt-5">
                 @include('inc.buttons.like')
-
                 @if (auth()->user()->id == $coocoo->user_id )
                     @include ('inc.buttons.deleteCoocoo')
                 @else
                     @include('inc.buttons.unfollow')
                 @endif
         </div>
-    </div>
 </div>
 

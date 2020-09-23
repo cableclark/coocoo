@@ -1,35 +1,11 @@
 @extends('layouts.app')
-
 @section('content')
-
 @include('inc.sessionStatus')
-
-<div class="row justify-content-center mt-4">
-    <div class="col-md-8">
+<div class="m-auto lg:w-1/3 mt-25">
     <x-error-message />
     @include('inc.coocoo.single')
-    @include('inc.coocoo.comment')
-
-    {{-- needs to be extracted into its own include --}}
-
-    <div class="mt-3">
-        @forelse ($coocoo->comments as $comment)
-        <div>
-            <a href="/user/{{$comment->user->name}}">
-                {{$comment->user->name}}
-            </a>
-        </div>
-        <div>
-            <p>"{{$comment->comment}}"" - <i> {{$comment->created_at->diffForHumans()}}</i></p>
-        </div>
-        @empty
-        <p>No comments yet</p>
-        @endforelse
-        {{-- ends here --}}
-    </div>
+    <div class="card p-5 rounded shadow">
+        <livewire:comment-form :coocooid="$coocoo->id"/>
     </div>
 </div>
-
-
-
 @endsection

@@ -24,7 +24,7 @@ class LikesController extends Controller
 
         auth()->user()->likes()->attach($validdata);
 
-        return redirect()->route('UserHome');
+        return back();
 
     }
 
@@ -36,7 +36,7 @@ class LikesController extends Controller
 
         auth()->user()->likes()->detach($validdata);
 
-        return redirect()->route('UserHome');
+        return back();
     }
 
 
